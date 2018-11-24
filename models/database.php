@@ -41,7 +41,11 @@
 		}
 
 		public function numRows($num){
-			return $num->num_rows;
+			if (!empty($num)) {
+				return $num->num_rows;
+			} else {
+				return 0;
+			}
 		}
 
 		public function __destruct() {

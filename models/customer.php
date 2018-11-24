@@ -48,11 +48,16 @@
       return $this->phone;
     }
 
-    public function getNewCustomerNum(){
+    public function getLastId(){
       $last = $this->_db->query("SELECT MAX(id) AS lastId FROM test");
-      $lastCusNum = $this->_db->fetchArray($last)['lastId'];
+      $lastId = $this->_db->fetchArray($last)['lastId'];
+      return $lastId;
+    }
+
+    public function getNewCustomerNum(){
+      $lastCusNum = $this->getLastId();
       $nextCusNum = $lastCusNum + 1;
-      if ($this->_db->numRows($last) < 1) {
+      if (empty($lastCusNum)) {
         $customerNum = 'CRM0001';
       } elseif ($lastCusNum < 10) {
         $customerNum = 'CRM000'.$nextCusNum;
@@ -78,8 +83,33 @@
     public function getAllCus(){
       $sql = "SELECT * FROM `test`";
       $res = $this->_db->query($sql);
-      $result = $this->_db->fetchArray($res);
-      return $result;
+      return $res;
+    }
+
+    public function numberRows($num){
+      return $num->num_rows;
+    }
+
+    public function getCustomer($id){
+      $sql = "SELECT * FROM `test` WHERE `id`='$id'";
+      $res = $this->_db->query($sql);
+      return $res;
+    }
+
+    public function editCus($id){
+      $sql = "UPDATE `test` SET `customer_no`='$this->customer_no', `name`='$this->name', `address`='$this->address', `phone`='$this->phone' WHERE id='$id' ";
+      $res = $this->_db->query($sql);
+      if ($res == TRUE) {
+        echo "data berhasil diubah";
+      }
+    }
+
+    public function hapusCus($id){
+      $sql = "DELETE FROM `test` WHERE id='$id' ";
+      $res = $this->_db->query($sql);
+      if ($res == TRUE) {
+        echo "data telah dihapus";
+      }
     }
   }
 

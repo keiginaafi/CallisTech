@@ -34,7 +34,7 @@
                   echo "<td>". $row[2] ."</td>";
                   echo "<td>". $row[3] ."</td>";
                   echo "<td>". $row[4] ."</td>";
-                  echo "<td><a href=EditCustomer.php?id=".$row[0]." class=button style=text-align: center>Edit</a></td>";
+                  echo "<td><a href=Hapus.php?id=".$row[0]." class=button style=text-align: center>Hapus</a></td>";
                   echo "</tr>";
                 }
               ?>
